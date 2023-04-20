@@ -1,10 +1,6 @@
-SELECT 
-    CONCAT('Project ', project.id) AS name, 
-    (
-        SELECT SUM(worker.salary * DATEDIFF(MONTH, project.start_date, project.finish_date)) 
-        FROM worker 
-        WHERE worker.id = project_worker.worker_id
-    ) AS price
-FROM project_worker 
-LEFT JOIN project ON project.id = project_worker.project_id 
-ORDER BY price DESC
+SELECT CONCAT('Project ', p.id) AS id, SUM(salary)*DATEDIFF(MONTH, start_date, finish_date) AS price
+FROM project p
+JOIN project_worker ON p.id = project_worker.project_id
+JOIN worker ON project_worker.worker_id = worker.id
+GROUP BY p.id
+ORDER BY price DESC;
