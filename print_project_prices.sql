@@ -1,4 +1,4 @@
-SELECT CONCAT('Project ', p.id) AS id, SUM(salary)*DATEDIFF(MONTH, start_date, finish_date) AS price
+SELECT CONCAT('Project ', p.id) AS id, (sum(SALARY)*DATEDIFF('MONTH', p.START_DATE, p.FINISH_DATE)) AS price
 FROM project p
 JOIN project_worker ON p.id = project_worker.project_id
 JOIN worker ON project_worker.worker_id = worker.id
